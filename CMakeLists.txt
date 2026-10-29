@@ -88,7 +88,7 @@ file(GLOB_RECURSE FRI_SOURCES RELATIVE ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}/${FRIClient_SDK_NAME}/src/protobuf_gen/*.pb.c
 )
 
-add_library(FRIClient SHARED
+add_library(FRIClient STATIC
     ${FRI_SOURCES}
     ${NANOPB_SOURCES}
 )
@@ -185,6 +185,8 @@ if (BUILD_FRI_APPS)
             PRIVATE
                 FRIClient
         )
+
+        target_link_libraries(FRIClient PRIVATE ws2_32)
     endfunction()
 
     build_fri_example(IOAccess)
